@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+    <RelativeLayout
+        android:id="@+id/rtc_local_surfaceview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+    </RelativeLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_gravity="bottom|left"
+        android:id = "@+id/LeftContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="100"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/sdkInit"
+            android:visibility="visible"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="引擎初始化" />
+        <Button
+            android:id="@+id/startPreview"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="开始预览" />
+
+        <Button
+            android:id="@+id/subscribeTopic"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="订阅内容" />
+
+        <Button
+            android:id="@+id/startRecord"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="开始录制" />
+        <Button
+            android:id="@+id/shareMedia"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="分享" />
+        <Button
+            android:id="@+id/switchCamera"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="切换摄像头" />
+
+
+        <!--<Button-->
+        <!--android:id="@+id/subscribeorunsubscribe"-->
+        <!--android:visibility="invisible"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="开始拉流" />-->
+
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="clip_horizontal">
+            <CheckBox
+                android:id="@+id/muteLocalAudio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+
+                android:text="禁用音频"/>
+            <CheckBox
+                android:id="@+id/muteLocalVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+
+                android:text="禁用视频" />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/rtc_remote_feeds_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/rtc_hori_remote_feeds_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1000"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

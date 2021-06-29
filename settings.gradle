@@ -1,0 +1,2 @@
+include ':app', ':webrtc'
+rootProject.name = "tuyartcdemo"

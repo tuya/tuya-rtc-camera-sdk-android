@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="192dp"
+    android:layout_height="108dp"
+    android:background="@color/black"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:orientation="vertical">
+
+
+
+
+    <!--    <Button-->
+    <!--        android:id="@+id/callDetails_btn"-->
+    <!--        android:text="详情"-->
+    <!--        android:textSize="8sp"-->
+    <!--        android:layout_width="48dp"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:layout_alignParentLeft="true"-->
+    <!--        android:layout_alignParentBottom="true"-->
+
+    <!--        />-->
+    <TextView
+        android:id="@+id/streamName_tv"
+        android:text="流名"
+        android:textSize="8sp"
+        android:gravity="left|center"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        />
+
+
+</RelativeLayout>
