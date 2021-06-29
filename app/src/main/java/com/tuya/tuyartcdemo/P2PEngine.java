@@ -17,11 +17,9 @@ import org.webrtc.VideoSink;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class P2PEngine implements TuyaRTCEngineHandler {
+public class P2PEngine {
     private static final String TAG = "P2PEngine";
 
-    private volatile boolean                              isInitalized;
-    private volatile boolean                              isDestroyed;
     private final    TuyaRTCEngine                        tuyaRTCEngine;
     private final    Context                              appContext;
     private final    EglBase                              eglBase;
@@ -40,7 +38,7 @@ public class P2PEngine implements TuyaRTCEngineHandler {
 
     public void initialize(String clientId, String secret, String authCode) {
         tuyaRTCEngine.initRtcEngine(appContext, eglBase,
-                clientId, secret, authCode, "cn", this);
+                clientId, secret, authCode, "cn", (TuyaRTCEngineHandler)caller);
     }
 
     public void destory() {
@@ -48,107 +46,73 @@ public class P2PEngine implements TuyaRTCEngineHandler {
     }
 
     public int startPreview(String did, SurfaceViewRenderer renderer) {
-        if (isInitalized) {
-            P2PCamera camera = new P2PCamera(caller, tuyaRTCEngine, eglBase, did);
-            camera.startPreview(renderer);
-            p2pCameraMap.put(did, camera);
-            return 0;
-        }
-
-        return -1;
-
+        P2PCamera camera = new P2PCamera(caller, tuyaRTCEngine, eglBase, did);
+        camera.startPreview(renderer);
+        p2pCameraMap.put(did, camera);
+        return 0;
     }
 
     public int stopPreview(String did) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(did);
-            if (camera != null) {
-                camera.destroy(did);
-                camera.stopPreview();
-            }
+        P2PCamera camera = p2pCameraMap.get(did);
+        if (camera != null) {
+            camera.destroy(did);
+            camera.stopPreview();
         }
-        return -1;
+        return 0;
+
     }
 
     public int startRecord(String deviceId, String mp4File) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(deviceId);
-            if (camera != null) {
-                return camera.startRecord(mp4File);
-            }
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.startRecord(mp4File);
         }
-        return -1;
+        return 0;
     }
 
     public int stopRecord(String deviceId) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(deviceId);
-            if (camera != null) {
-                return camera.stopRecord();
-            }
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.stopRecord();
         }
-        return -1;
+        return 0;
     }
 
 
     public int muteAudio(String deviceId, boolean mute) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(deviceId);
-            if (camera != null) {
-                return camera.muteAudio(mute);
-            }
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.muteAudio(mute);
         }
-        return -1;
+        return 0;
     }
 
     public int muteVideo(String deviceId, boolean mute) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(deviceId);
-            if (camera != null) {
-                return camera.muteVideo(mute);
-            }
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.muteVideo(mute);
         }
-        return -1;
+        return 0;
     }
 
     public boolean getAudioMute(String deviceId) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(deviceId);
-            if (camera != null) {
-                return camera.getAudioMute();
-            }
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.getAudioMute();
         }
         return false;
     }
 
 
     public boolean getVideoMute(String deviceId) {
-        if (isInitalized) {
-            P2PCamera camera = p2pCameraMap.get(deviceId);
-            if (camera != null) {
-                return camera.getVideoMute();
-            }
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.getVideoMute();
         }
         return false;
     }
 
-    @Override
-    public void onLogMessage(String s) {
-        Log.e(TAG, "===>" + s);
-    }
 
-    @Override
-    public void onInitialized() {
-        isInitalized = true;
-        Log.e(TAG, "engine has been initalized.");
-
-    }
-
-    @Override
-    public void onDestoryed() {
-        isDestroyed = true;
-        Log.e(TAG, "engine has been destoryed.");
-    }
 
 
     static class P2PCamera {

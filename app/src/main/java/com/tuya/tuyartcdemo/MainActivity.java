@@ -29,6 +29,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.webrtc.EglBase;
 import org.webrtc.RendererCommon;
@@ -41,9 +42,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener ,
-        CompoundButton.OnCheckedChangeListener {
+        CompoundButton.OnCheckedChangeListener, TuyaRTCEngineHandler{
     private static final String TAG = "MainActivity";
 
+
+    private volatile boolean                              isInitalized;
+    private volatile boolean                              isDestroyed;
     private static final String[] MANDATORY_PERMISSIONS = {"android.permission.CAMERA",
             "android.permission.RECORD_AUDIO", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
@@ -53,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button startRecorBtn;
 
 
-    private CheckBox muteLocalAudiocheckbox;
-    private CheckBox muteLocalVideocheckbox;
+    private CheckBox muteRemoteAudiocheckbox;
+    private CheckBox muteRemoteVideocheckbox;
 
 
     private LayoutInflater inflater;
@@ -77,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //For test arguments.
-    private String clientId = "jct4wjjgtppxth9vpjeq";
-    private String secret  = "ns45erx7y9ut8trygwwnfu549eghrmqg";
-    private String deviceId = "6ceeb5b251fb016f2aamtp";
-    private String authCode = "b64775352efa99b7cf904fc8c7720d74";
+    private String clientId = "input your client id";
+    private String secret  = "input your secret id";
+    private String deviceId = "input your device id";
+    private String authCode = "input your auth code";
 
 
     private P2PEngine p2PEngine;
@@ -109,11 +113,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button switchCameraBtn = findViewById(R.id.switchCamera);
         switchCameraBtn.setOnClickListener(this);
 
-        muteLocalAudiocheckbox = findViewById(R.id.muteLocalAudio);
-        muteLocalVideocheckbox = findViewById(R.id.muteLocalVideo);
+        muteRemoteAudiocheckbox = findViewById(R.id.muteRemoteAudio);
+        muteRemoteVideocheckbox = findViewById(R.id.muteRemoteVideo);
 
-        muteLocalAudiocheckbox.setOnCheckedChangeListener(this);
-        muteLocalVideocheckbox.setOnCheckedChangeListener(this);
+        muteRemoteAudiocheckbox.setOnCheckedChangeListener(this);
+        muteRemoteVideocheckbox.setOnCheckedChangeListener(this);
 
         localSurfaceLayout = findViewById(R.id.rtc_local_surfaceview);
         remoteFeedContainer = findViewById(R.id.rtc_remote_feeds_container);
@@ -164,8 +168,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 requestDangerousPermissions(MANDATORY_PERMISSIONS, 1);
                 TuyaRTCEngine.setLogConfigure(null,0);
                 p2PEngine = new P2PEngine(this);
-                executor.execute(() ->{
-                    p2PEngine.initialize(clientId, secret, authCode);
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        p2PEngine.initialize(clientId, secret, authCode);
+                    }
                 });
 
                 sdkInitBtn.setText("引擎销毁");
@@ -188,43 +195,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sdkInitBtn.setText("引擎初始化");
                 isSdkInit = false;
             }
-        } else if (v.getId() == R.id.startPreview) {
-        } else if (v.getId() == R.id.subscribeTopic) {
-            if (p2PEngine  != null && (!isSubscrbingTopic)) {
-                SurfaceViewRenderer viewRenderer = new SurfaceViewRenderer(this);
-                addFeedWindow(deviceId, viewRenderer);
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        p2PEngine.startPreview(deviceId, viewRenderer);
-                    }
-                });
-                subscribeTopicBtn.setText("退订内容");
-                isSubscrbingTopic = true;
-            } else {
-                deleteFeedWindow(deviceId);
-                p2PEngine.stopPreview(deviceId);
-                subscribeTopicBtn.setText("订阅内容");
-                isSubscrbingTopic = false;
+        } else {
+            if (!isInitalized) {
+                Log.e(TAG, "请先初始化引擎。");
+                Toast.makeText(this, "请先初始化引擎.", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (v.getId() == R.id.subscribeTopic) {
+                if (p2PEngine  != null && (!isSubscrbingTopic)) {
+                    SurfaceViewRenderer viewRenderer = new SurfaceViewRenderer(this);
+                    addFeedWindow(deviceId, viewRenderer);
+                    executor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            p2PEngine.startPreview(deviceId, viewRenderer);
+                        }
+                    });
+                    subscribeTopicBtn.setText("退订内容");
+                    isSubscrbingTopic = true;
+                } else {
+                    deleteFeedWindow(deviceId);
+                    p2PEngine.stopPreview(deviceId);
+                    subscribeTopicBtn.setText("订阅内容");
+                    isSubscrbingTopic = false;
+                }
 
-        } else if (v.getId() == R.id.startRecord) {
-            if ((p2PEngine !=  null) && (!isStartRecord)) {
-                p2PEngine.startRecord(deviceId, getApplicationContext().getFilesDir().getAbsolutePath()+"/a.mp4");
-                //tuyaRTCCamera.changeVideoResolution(true);
-                startRecorBtn.setText("停止录制");
-                isStartRecord = true;
-            } else {
-                //tuyaRTCCamera.changeVideoResolution(false);
+            } else if (v.getId() == R.id.startRecord) {
+                if ((p2PEngine !=  null) && (!isStartRecord)) {
+                    p2PEngine.startRecord(deviceId, getApplicationContext().getFilesDir().getAbsolutePath()+"/a.mp4");
+                    //tuyaRTCCamera.changeVideoResolution(true);
+                    startRecorBtn.setText("停止录制");
+                    isStartRecord = true;
+                } else {
+                    //tuyaRTCCamera.changeVideoResolution(false);
 
-                p2PEngine.stopRecord(deviceId);
-                startRecorBtn.setText("开始录制");
-                isStartRecord = false;
+                    p2PEngine.stopRecord(deviceId);
+                    startRecorBtn.setText("开始录制");
+                    isStartRecord = false;
+                }
+            } else if (v.getId() == R.id.shareMedia) {
+                String mp4File = getApplicationContext().getFilesDir().getAbsolutePath()+"/a.mp4";
+                shareMedia(this, mp4File, false);
             }
-        } else if (v.getId() == R.id.shareMedia) {
-            String mp4File = getApplicationContext().getFilesDir().getAbsolutePath()+"/a.mp4";
-            shareMedia(this, mp4File, false);
         }
+
     }
     private int shareMedia(Context context, String mediaPath, boolean isPhoto) {
         final Intent intent = new Intent();
@@ -253,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.muteLocalAudio) {
+        if (buttonView.getId() == R.id.muteRemoteAudio) {
             executor.execute(() ->{
                 p2PEngine.muteAudio(deviceId, !audioMuted);
                 //audioMuted = !audioMuted;
@@ -261,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Log.e(TAG, "getRemoteAudioMute " + p2PEngine.getAudioMute(deviceId));
             });
-        } else if (buttonView.getId() == R.id.muteLocalVideo) {
+        } else if (buttonView.getId() == R.id.muteRemoteVideo) {
             executor.execute(()->{
                 executor.execute(() ->{
                     p2PEngine.muteVideo(deviceId, !videoMuted);
@@ -328,6 +342,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
 
 
+    }
+
+    @Override
+    public void onLogMessage(String s) {
+        Log.e(TAG, "===>" + s);
+    }
+
+    @Override
+    public void onInitialized() {
+        isInitalized = true;
+        Log.e(TAG, "engine has been initalized.");
+
+    }
+
+    @Override
+    public void onDestoryed() {
+        isDestroyed = true;
+        Log.e(TAG, "engine has been destoryed.");
     }
 
 

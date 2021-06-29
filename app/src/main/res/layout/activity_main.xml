@@ -38,7 +38,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="引擎初始化" />
+            android:text="Init" />
         <Button
             android:id="@+id/startPreview"
             android:layout_width="120dp"
@@ -50,24 +50,24 @@
             android:id="@+id/subscribeTopic"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="订阅内容" />
+            android:text="Subscribe" />
 
         <Button
             android:id="@+id/startRecord"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="开始录制" />
+            android:text="Record" />
         <Button
             android:id="@+id/shareMedia"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="分享" />
+            android:text="Share" />
         <Button
             android:id="@+id/switchCamera"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:text="切换摄像头" />
+            android:text="Switch camera" />
 
 
         <!--<Button-->
@@ -84,19 +84,19 @@
             android:orientation="vertical"
             android:layout_gravity="clip_horizontal">
             <CheckBox
-                android:id="@+id/muteLocalAudio"
+                android:id="@+id/muteRemoteAudio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
 
-                android:text="禁用音频"/>
+                android:text="Mute audio"/>
             <CheckBox
-                android:id="@+id/muteLocalVideo"
+                android:id="@+id/muteRemoteVideo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
 
-                android:text="禁用视频" />
+                android:text="Mute Video" />
         </LinearLayout>
 
 
