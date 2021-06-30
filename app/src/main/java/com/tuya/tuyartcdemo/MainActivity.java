@@ -7,9 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.tuya.rtc.TuyaRTCCamera;
-import com.tuya.rtc.TuyaRTCCameraHandler;
-import com.tuya.rtc.TuyaRTCEngine;
 import com.tuya.rtc.TuyaRTCEngineHandler;
 
 import androidx.annotation.NonNull;
@@ -31,10 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.webrtc.EglBase;
-import org.webrtc.RendererCommon;
+
 import org.webrtc.SurfaceViewRenderer;
-import org.webrtc.VideoFrame;
 
 import java.io.File;
 import java.util.concurrent.ConcurrentHashMap;
@@ -52,29 +47,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             "android.permission.RECORD_AUDIO", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     private Button sdkInitBtn;
-    private Button startPreivewBtn;
     private Button subscribeTopicBtn;
     private Button startRecorBtn;
-
-
-    private CheckBox muteRemoteAudiocheckbox;
-    private CheckBox muteRemoteVideocheckbox;
 
 
     private LayoutInflater inflater;
 
 
-    private RelativeLayout localSurfaceLayout;
-    private LinearLayout remoteFeedContainer;
     private LinearLayout feedContainer;
 
-    private ConcurrentHashMap<String, ViewGroup> feedWindows = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ViewGroup> feedWindows = new ConcurrentHashMap<>();
 
     private boolean audioMuted;
     private boolean videoMuted;
 
     private boolean isSdkInit;
-    private boolean isStartPreview;
     private                  boolean         isSubscrbingTopic;
     private boolean isStartRecord;
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -102,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         sdkInitBtn = findViewById(R.id.sdkInit);
         sdkInitBtn.setOnClickListener(this);
-        startPreivewBtn = findViewById(R.id.startPreview);
-        startPreivewBtn.setOnClickListener(this);
         subscribeTopicBtn = findViewById(R.id.subscribeTopic);
         subscribeTopicBtn.setOnClickListener(this);
         startRecorBtn = findViewById(R.id.startRecord);
@@ -113,15 +98,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button switchCameraBtn = findViewById(R.id.switchCamera);
         switchCameraBtn.setOnClickListener(this);
 
-        muteRemoteAudiocheckbox = findViewById(R.id.muteRemoteAudio);
-        muteRemoteVideocheckbox = findViewById(R.id.muteRemoteVideo);
+        CheckBox muteRemoteAudiocheckbox = findViewById(R.id.muteRemoteAudio);
+        CheckBox muteRemoteVideocheckbox = findViewById(R.id.muteRemoteVideo);
 
         muteRemoteAudiocheckbox.setOnCheckedChangeListener(this);
         muteRemoteVideocheckbox.setOnCheckedChangeListener(this);
 
-        localSurfaceLayout = findViewById(R.id.rtc_local_surfaceview);
-        remoteFeedContainer = findViewById(R.id.rtc_remote_feeds_container);
-        feedContainer = remoteFeedContainer;
+        feedContainer = findViewById(R.id.rtc_remote_feeds_container);
 
 
     }
@@ -166,22 +149,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.sdkInit) {
             if (!isSdkInit) {
                 requestDangerousPermissions(MANDATORY_PERMISSIONS, 1);
-                TuyaRTCEngine.setLogConfigure(null,0);
                 p2PEngine = new P2PEngine(this);
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        p2PEngine.initialize(clientId, secret, authCode);
-                    }
-                });
-
+                executor.execute(() -> p2PEngine.initialize(clientId, secret, authCode));
                 sdkInitBtn.setText("引擎销毁");
+
                 isSdkInit = true;
             } else {
-                if (isStartPreview) {
-                    startPreivewBtn.setText("停止预览");
-                    isStartPreview = false;
-                }
                 if (isSubscrbingTopic) {
                     p2PEngine.stopPreview(deviceId);
                     deleteFeedWindow(deviceId);
@@ -205,12 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (p2PEngine  != null && (!isSubscrbingTopic)) {
                     SurfaceViewRenderer viewRenderer = new SurfaceViewRenderer(this);
                     addFeedWindow(deviceId, viewRenderer);
-                    executor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            p2PEngine.startPreview(deviceId, viewRenderer);
-                        }
-                    });
+                    executor.execute(() -> p2PEngine.startPreview(deviceId, viewRenderer));
                     subscribeTopicBtn.setText("退订内容");
                     isSubscrbingTopic = true;
                 } else {
@@ -234,12 +202,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     isStartRecord = false;
                 }
             } else if (v.getId() == R.id.shareMedia) {
-                String mp4File = getApplicationContext().getFilesDir().getAbsolutePath()+"/a.mp4";
-                shareMedia(this, mp4File, false);
+                //String mp4File = getApplicationContext().getFilesDir().getAbsolutePath()+"/a.mp4";
+                //shareMedia(this, mp4File, false);
+                p2PEngine.snapshot(deviceId,getApplicationContext().getFilesDir().getAbsolutePath() + "/a.jpg", 640, 360);
+
             }
         }
 
     }
+
     private int shareMedia(Context context, String mediaPath, boolean isPhoto) {
         final Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
@@ -265,24 +236,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return 0;
     }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView.getId() == R.id.muteRemoteAudio) {
             executor.execute(() ->{
                 p2PEngine.muteAudio(deviceId, !audioMuted);
-                //audioMuted = !audioMuted;
-                //tuyaRTCCamera.snapShot(this.getFilesDir().getAbsolutePath() + "/a.jpg", 0, 0);
-
+                audioMuted = !audioMuted;
                 Log.e(TAG, "getRemoteAudioMute " + p2PEngine.getAudioMute(deviceId));
             });
         } else if (buttonView.getId() == R.id.muteRemoteVideo) {
             executor.execute(()->{
-                executor.execute(() ->{
-                    p2PEngine.muteVideo(deviceId, !videoMuted);
-                    videoMuted = !videoMuted;
-                    Log.e(TAG, "getRemoteVideoMute " +p2PEngine.getVideoMute(deviceId));
+                p2PEngine.muteVideo(deviceId, !videoMuted);
+                videoMuted = !videoMuted;
+                Log.e(TAG, "getRemoteVideoMute " +p2PEngine.getVideoMute(deviceId));
 
-                });
             });
         }
     }
@@ -301,8 +269,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 检查是否已被授权危险权限
-     * @param permissions
-     * @return
+     * @param permissions 权限合集
+     * @return 成功true，失败false
      */
     private boolean checkDangerousPermissions(String[] permissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -324,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int result : grantResults) {
             if (result != PackageManager.PERMISSION_GRANTED) {
                 granted = false;
+                break;
             }
         }
         boolean finish = handlePermissionResult(requestCode, granted);
@@ -334,12 +303,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 处理请求危险权限的结果
-     * @return
+     * @return true
      */
     private boolean handlePermissionResult(int requestCode, boolean granted) {
         //Notice 这里要自定义处理权限申请。
         Log.e(TAG, "handlePermissionResult " + " requestCode " + requestCode + " granted " + granted);
-        return false;
+        return true;
 
 
     }
@@ -359,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onDestoryed() {
         isDestroyed = true;
-        Log.e(TAG, "engine has been destoryed.");
+        Log.e(TAG, "engine has been destoryed." + isDestroyed);
     }
 
 

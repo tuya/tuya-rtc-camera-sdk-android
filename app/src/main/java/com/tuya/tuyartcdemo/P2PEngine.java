@@ -58,7 +58,7 @@ public class P2PEngine {
             camera.destroy(did);
             camera.stopPreview();
         }
-        return 0;
+        return -1;
 
     }
 
@@ -67,7 +67,7 @@ public class P2PEngine {
         if (camera != null) {
             return camera.startRecord(mp4File);
         }
-        return 0;
+        return -1;
     }
 
     public int stopRecord(String deviceId) {
@@ -75,16 +75,23 @@ public class P2PEngine {
         if (camera != null) {
             return camera.stopRecord();
         }
-        return 0;
+        return -1;
     }
 
+    public int snapshot(String deviceId, String jpgFile, int width, int height) {
+        P2PCamera camera = p2pCameraMap.get(deviceId);
+        if (camera != null) {
+            return camera.snapshot(jpgFile, width, height);
+        }
+        return -1;
+    }
 
     public int muteAudio(String deviceId, boolean mute) {
         P2PCamera camera = p2pCameraMap.get(deviceId);
         if (camera != null) {
             return camera.muteAudio(mute);
         }
-        return 0;
+        return -1;
     }
 
     public int muteVideo(String deviceId, boolean mute) {
@@ -92,7 +99,7 @@ public class P2PEngine {
         if (camera != null) {
             return camera.muteVideo(mute);
         }
-        return 0;
+        return -1;
     }
 
     public boolean getAudioMute(String deviceId) {
@@ -190,6 +197,10 @@ public class P2PEngine {
         public int stopRecord() {
             boolean ret = tuyaRTCCamera.stopRecord();
             return ret ? 0 : -1;
+        }
+        public int snapshot(String jpgFile, int width, int height) {
+            tuyaRTCCamera.snapShot(jpgFile, width, height);
+            return 0;
         }
 
         public int muteAudio(boolean mute) {
