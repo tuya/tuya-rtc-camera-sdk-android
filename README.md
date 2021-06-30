@@ -3,7 +3,7 @@
 
 
 
-[中文版](README-zh.md)|[English](README.md)
+[中文版](README-ZH.md)|[English](README.md)
 
 ## Features Overview
 TuyaRTCCamera SDK is a comprehensive solution for audio and video based on WebRTC technology,
