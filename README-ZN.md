@@ -9,29 +9,27 @@ TuyaRTC SDK是一套基于WebRTC技术的音视频综合解决方案，通过本
 - 交互操作
 
 
-### 通用SDK扩展包
+## 集成SDK的步骤
+### 第一步
+修改MainActivity.java中的一些参数，修改为合适的参数
+``` java
+    ...
+    private String clientId = "input your client id";
+    private String secret  = "input your secret id";
+    private String deviceId = "input your device id";
+    private String authCode = "input your auth code"; 
+    ...
+``` 
 
-在集成Home SDK的前提下, 通过选择集成扩展包, 获取相关基础能力支持相关业务开发.
-
-## 集成SDK
-
-### 配置build.gradle
-
-build.gradle文件依赖声明中配置相关依赖
+### 第二步
+配置build.gradle
+在应用目录下找到build.gradle, 并在文件中添加相关依赖
 
 ``` gradle
 dependencies {
     implementation fileTree(dir: 'libs', include: rtcPackageName)
     implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5'
 }
-```
-
-## 获取相关扩展包能力
-
-通过以下代码来获取相关面板多语言SDK的能力
-
-``` java
-IPanelI18n i18nManager = PluginManager.service(IPanelI18n.class);
 ```
 
 ## 能力概述
