@@ -1,13 +1,13 @@
-# TuyaRTC - p2p设备音视频操作基础库
+# TuyaRTCCameraSDK - RTCCamera 音视频开发套件
 
 ## 功能概述
-TuyaRTC SDK是一套基于WebRTC技术的音视频综合解决方案，通过本SDK可以方便的接入Tuya IoT Colud，然后对Tuya IoT设备
+TuyaRTCCamera SDK是一套基于WebRTC技术的音视频综合解决方案，通过本SDK可以方便的接入Tuya IoT Colud，然后对Tuya IoT设备
 进行一些列的交互操作，尤其是对音视频处理和控制是本SDK的核心功能。
 通过该sdk可以完成以下核心功能
-- 预览
-- 录制
-- 交互操作
-
+- 预览Camera的内容
+- 录制Camera的内容
+- JPEG 抓屏
+- 支持与摄像头进行交互操作
 
 ## 集成SDK的步骤
 ### 第一步
@@ -31,6 +31,13 @@ dependencies {
     implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5'
 }
 ```
+
+### 第三步
+copy aar文件到相应的目录
+-- app
+   -- libs
+       -- copy到此处 ……
+   -- src
 
 ## 能力概述
 
@@ -88,7 +95,8 @@ dependencies {
 | ue | EasternAmerica |
 | we | WesternEurope |
 
-
+## Docs
+请参阅[doc/cn](doc/cn/index.html)
 
 ## 用例代码
 
