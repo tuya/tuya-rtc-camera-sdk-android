@@ -31,13 +31,10 @@ dependencies {
     implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5'
 }
 ```
-
 ### 第三步
-copy aar文件到相应的目录
--- app
-   -- libs
-       -- copy到此处 ……
-   -- src
+copy 库文件
+- 在当前工程的目录下，如果没有存放库文件的目录，则执行`mkdir libs` 新建一个目录
+- 把Libraries的某一个版本下的aar文件copy到创建好的libs目录面
 
 ## 能力概述
 

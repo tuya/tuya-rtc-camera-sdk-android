@@ -3,7 +3,7 @@
 
 
 
-[中文版](README-ZH.md)|[English](README.md)
+[English](README.md)|[中文版](README-ZH.md)
 
 ## Features Overview
 TuyaRTCCamera SDK is a comprehensive solution for audio and video based on WebRTC technology,
@@ -39,12 +39,9 @@ dependencies {
 ```
 
 ### Step 3
-Copy the aar file to the appropriate directory
--- app
-   -- libs
-       -- copy to here ......
-   -- src
-
+Copy the library files
+- In the current project directory, if there is no directory for the library files, execute `mkdir libs` to create a new directory
+- Copy the aar file from one of the Libraries versions to the created libs directory
 
 ## Capabilities Overview
 
