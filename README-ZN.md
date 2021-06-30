@@ -80,9 +80,20 @@ IPanelI18n i18nManager = PluginManager.service(IPanelI18n.class);
 | onFirstVideoFrame | 当前Camera的第一帧视频数据回调函数 |
 | onResolutionChanged | 当前Camera的视频分辨率变化时候的回调函数 |
 
+## RegionCode 对照表
+| 区域缩写 | 范围 |
+| :------------ | :------------------------------------------------------------------- |
+| cn | China |
+| us | America |
+| eu | Europe |
+| in | India |
+| ue | EasternAmerica |
+| we | WesternEurope |
+
+
 
 ## 用例代码
-- prepare
+
 ``` java
 
 public class P2PEngine {
