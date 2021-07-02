@@ -41,8 +41,8 @@ public class P2PEngine {
                 clientId, secret, authCode, "cn", (TuyaRTCEngineHandler)caller);
     }
 
-    public void destory() {
-        tuyaRTCEngine.destoryRtcEngine();
+    public void destroy() {
+        tuyaRTCEngine.destroyRtcEngine();
     }
 
     public int startPreview(String did, SurfaceViewRenderer renderer) {
@@ -140,7 +140,7 @@ public class P2PEngine {
 
 
         public void destroy(String did) {
-            tuyaRTCEngine.destoryTuyaCamera(did);
+            tuyaRTCEngine.destroyTuyaCamera(did);
         }
 
         public int startPreview(SurfaceViewRenderer renderer) {

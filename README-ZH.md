@@ -1,5 +1,7 @@
 # TuyaRTCCameraSDK - RTCCamera 音视频开发套件
 
+[English](README.md)|[中文版](README-ZH.md)
+
 ## 功能概述
 TuyaRTCCamera SDK是一套基于WebRTC技术的音视频综合解决方案，通过本SDK可以方便的接入Tuya IoT Colud，然后对Tuya IoT设备
 进行一些列的交互操作，尤其是对音视频处理和控制是本SDK的核心功能。
@@ -35,6 +37,16 @@ dependencies {
 copy 库文件
 - 在当前工程的目录下，如果没有存放库文件的目录，则执行`mkdir libs` 新建一个目录
 - 把Libraries的某一个版本下的aar文件copy到创建好的libs目录面
+
+### 第四步
+- 根据你所在的区域，填入合适的regionCode，可参照下面的内容`RegionCode 对照表`
+- 下面是以我所在的区域(中国，浙江省杭州市），应该填入的参数为"cn"
+```java
+tuyaRTCEngine.initRtcEngine(appContext, eglBase,
+           clientId, secret, authCode, "cn", (TuyaRTCEngineHandler)caller);
+```
+
+
 
 ## 能力概述
 
@@ -93,7 +105,7 @@ copy 库文件
 | we | WesternEurope |
 
 ## Docs
-请参阅[doc/cn](doc/cn/index.html)
+请参阅[API Reference](doc/index/index.html)，在阅读之前请把代码下载到本地，然后在用浏览器打开
 
 ## 用例代码
 

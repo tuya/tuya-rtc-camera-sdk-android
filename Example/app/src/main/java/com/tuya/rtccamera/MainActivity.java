@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isStartRecord) {
                     p2PEngine.stopRecord(deviceId);
                 }
-                p2PEngine.destory();
+                p2PEngine.destroy();
                 sdkInitBtn.setText("引擎初始化");
                 isSdkInit = false;
             }
@@ -326,9 +326,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onDestoryed() {
+    public void onDestroyed() {
         isDestroyed = true;
-        Log.e(TAG, "engine has been destoryed." + isDestroyed);
+        Log.e(TAG, "engine has been destroyed." + isDestroyed);
     }
 
 
