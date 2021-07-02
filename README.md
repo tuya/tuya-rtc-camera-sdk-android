@@ -105,7 +105,7 @@ tuyaRTCEngine.initRtcEngine(appContext, eglBase,
 | us | America |
 | eu | Europe |
 | in | India |
-| we | | ue | EasternAmerica |
+| ue | EasternAmerica |
 | we | WesternEurope |
 
 ## Docs
