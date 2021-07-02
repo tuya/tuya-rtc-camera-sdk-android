@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['destoryrtcengine_32',['destoryRtcEngine',['../classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#aed4ee8a71b6086844a8ad9a76eb37c5d',1,'com::tuya::rtc::TuyaRTCEngine']]],
-  ['destorytuyacamera_33',['destoryTuyaCamera',['../classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#a5b707759faa9c81fb183d1b51bf85b28',1,'com::tuya::rtc::TuyaRTCEngine']]]
+  ['destroyrtcengine_32',['destroyRtcEngine',['../classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#aa7b2925e27f8d3185211da245bf88204',1,'com::tuya::rtc::TuyaRTCEngine']]],
+  ['destroytuyacamera_33',['destroyTuyaCamera',['../classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#a1172f1ddd70a182a37daf4a1793f142e',1,'com::tuya::rtc::TuyaRTCEngine']]]
 ];

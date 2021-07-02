@@ -78,12 +78,12 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a21a3b4b4479a3db7343d04fcda636aa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#a21a3b4b4479a3db7343d04fcda636aa1">initRtcEngine</a> (Context appContext, EglBase eglBase, String clientId, String secretId, String authCode, String reginCode, <a class="el" href="interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html">TuyaRTCEngineHandler</a> engineHandler)</td></tr>
 <tr class="separator:a21a3b4b4479a3db7343d04fcda636aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed4ee8a71b6086844a8ad9a76eb37c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#aed4ee8a71b6086844a8ad9a76eb37c5d">destoryRtcEngine</a> ()</td></tr>
-<tr class="separator:aed4ee8a71b6086844a8ad9a76eb37c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7b2925e27f8d3185211da245bf88204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#aa7b2925e27f8d3185211da245bf88204">destroyRtcEngine</a> ()</td></tr>
+<tr class="separator:aa7b2925e27f8d3185211da245bf88204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5364dc460179f876a711e0a0fd1667e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_camera.html">TuyaRTCCamera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#a5364dc460179f876a711e0a0fd1667e1">createTuyaCamera</a> (String did)</td></tr>
 <tr class="separator:a5364dc460179f876a711e0a0fd1667e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b707759faa9c81fb183d1b51bf85b28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#a5b707759faa9c81fb183d1b51bf85b28">destoryTuyaCamera</a> (String did)</td></tr>
-<tr class="separator:a5b707759faa9c81fb183d1b51bf85b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1172f1ddd70a182a37daf4a1793f142e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine.html#a1172f1ddd70a182a37daf4a1793f142e">destroyTuyaCamera</a> (String did)</td></tr>
+<tr class="separator:a1172f1ddd70a182a37daf4a1793f142e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -168,21 +168,21 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aed4ee8a71b6086844a8ad9a76eb37c5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed4ee8a71b6086844a8ad9a76eb37c5d">&#9670;&nbsp;</a></span>destoryRtcEngine()</h2>
+<a id="aa7b2925e27f8d3185211da245bf88204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7b2925e27f8d3185211da245bf88204">&#9670;&nbsp;</a></span>destroyRtcEngine()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void com.tuya.rtc.TuyaRTCEngine.destoryRtcEngine </td>
+          <td class="memname">void com.tuya.rtc.TuyaRTCEngine.destroyRtcEngine </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Destroy the engine method, is the asynchronous execution of the function, the function at the end of the execution, the processing inside may not be completed, the program needs to listen to the <a class="el" href="interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html#afd74ac9bc92f897f8fe2315434b77c8d">TuyaRTCEngineHandler::onDestoryed</a> method, by getting onDestoryed method can know that the engine has been destroyed successfully </p>
+<p>Destroy the engine method, is the asynchronous execution of the function, the function at the end of the execution, the processing inside may not be completed, the program needs to listen to the <a class="el" href="interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html#abf9a5229507d5b77b09894b6f093800a">TuyaRTCEngineHandler::onDestroyed</a> method, by getting onDestroyed method can know that the engine has been destroyed successfully </p>
 
 </div>
 </div>
@@ -212,14 +212,14 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5b707759faa9c81fb183d1b51bf85b28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b707759faa9c81fb183d1b51bf85b28">&#9670;&nbsp;</a></span>destoryTuyaCamera()</h2>
+<a id="a1172f1ddd70a182a37daf4a1793f142e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1172f1ddd70a182a37daf4a1793f142e">&#9670;&nbsp;</a></span>destroyTuyaCamera()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void com.tuya.rtc.TuyaRTCEngine.destoryTuyaCamera </td>
+          <td class="memname">void com.tuya.rtc.TuyaRTCEngine.destroyTuyaCamera </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>did</em></td><td>)</td>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ondestoryed_11',['onDestoryed',['../interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html#afd74ac9bc92f897f8fe2315434b77c8d',1,'com::tuya::rtc::TuyaRTCEngineHandler']]],
+  ['ondestroyed_11',['onDestroyed',['../interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html#abf9a5229507d5b77b09894b6f093800a',1,'com::tuya::rtc::TuyaRTCEngineHandler']]],
   ['onfirstvideoframe_12',['onFirstVideoFrame',['../interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_camera_handler.html#a07bf731821d257a185bdd0b38d19134b',1,'com::tuya::rtc::TuyaRTCCameraHandler']]],
   ['oninitialized_13',['onInitialized',['../interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html#afa0aa843100fcdb45e3d600a5413af40',1,'com::tuya::rtc::TuyaRTCEngineHandler']]],
   ['onlogmessage_14',['onLogMessage',['../interfacecom_1_1tuya_1_1rtc_1_1_tuya_r_t_c_engine_handler.html#a74a85f17ea8102fe469e1a128b27116c',1,'com::tuya::rtc::TuyaRTCEngineHandler']]],
