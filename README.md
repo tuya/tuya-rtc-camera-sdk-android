@@ -1,24 +1,20 @@
 
-## Tuya RTC Camera SDK
+## Tuya RTC Camera SDK — RTC Camera Audio and Video Development Kit
 
 
 
-[English](README.md)|[中文版](README-ZH.md)
+[English](README.md) | [中文版](README-ZH.md)
 
-## Features Overview
-TuyaRTCCamera SDK is a comprehensive solution for audio and video based on WebRTC technology,
-through this SDK you can easily access Tuya IoT Colud and then perform a number of interactive
-operations on Tuya IoT devices.
-This SDK allows you to easily access the Tuya IoT Colud and perform a number of interactive
-operations, especially for audio and video processing and control is the core function of this SDK.
-- Preview Camera's content
-- Recording Camera's content
-- JPEG screen capture
-- Support for interacting with the camera
+## Overview
+Tuya RTC Camera SDK is a comprehensive solution for audio and video development based on the WebRTC technology. With this SDK, you can easily access the Tuya IoT Cloud and implement interactions with `Powered by Tuya` devices. The core feature of this SDK is audio and video processing and control. Specifically, this SDK allows users to:
+- Preview content from cameras.
+- Record content from cameras.
+- Capture and save images in the JPEG format.
+- Interact with cameras.
 
-## Steps to integrate the SDK
-### First step
-Modify some parameters in MainActivity.java to the appropriate ones
+## Integrate with the SDK
+### Step 1
+Modify the following parameters in `MainActivity.java` as required.
 ``` java
     ...
     private String clientId = "input your client id";
@@ -28,8 +24,7 @@ Modify some parameters in MainActivity.java to the appropriate ones
     ...
 ```
 ### Step 2
-Configure build.gradle
-Find build.gradle in the application directory, and add the relevant dependencies to the file
+Configure `build.gradle`: Find `build.gradle` in the application directory and add required dependencies to the file.
 
 ``` gradle
 dependencies {
@@ -39,87 +34,84 @@ dependencies {
 ```
 
 ### Step 3
-Copy the library files
-- In the current project directory, if there is no directory for the library files, execute `mkdir libs` to create a new directory
-- Copy the aar file from one of the Libraries versions to the created libs directory
+Copy the library files:
+1. If no directories are created to include library files for your project, run `mkdir libs` to create a directory.
+2. Copy the `aar.` file from one of the library versions and paste it to the newly created `libs` directory.
 
 ### Step 4
-- According to your region, fill in the appropriate regionCode, you can refer to the following content `RegionCode Comparison Table`.
-- Here is the parameter that should be filled in with "cn" for my region (Hangzhou, Zhejiang Province, China)
+Set `regionCode` to the value that matches your region. For more information, see *RegionCode Comparison Table*.
+In the following example, `regionCode` is set to `cn` for the region (Hangzhou, Zhejiang Province, China).
 ```java
 tuyaRTCEngine.initRtcEngine(appContext, eglBase,
            clientId, secret, authCode, "cn", (TuyaRTCEngineHandler)caller);
 ```
 
 
-## Capabilities Overview
+## Capabilities
 
-**Interface Description**
+**API description**
 
-**TuyaRTCEngine Interface Description**
+**TuyaRTCEngine**
 
-| Parameters | Description |
+| Parameter | Description |
 | :------------ | :------------------------------------------------------------------- |
-| initRtcEngine | Engine initialization |
-| destroyRtcEngine | Destroy the engine
-| createTuyaCamera | Creates a TuyaRTCCamera object, each object corresponds to a Camera or Stream.
-| destoryTuyaCamera | Destroy a TuyaRTCCamera object |
-| setLogConfigure | Set the log output of the SDK. | getSdkVersion
-| getSdkVersion | Get the SDK version information.
-| getBuildTime | Get the SDK build time |
+| initRtcEngine | Initializes the engine. |
+| destroyRtcEngine | Destroys the engine.
+| createTuyaCamera | Creates an object of `TuyaRTCCamera`. The object corresponds to a camera or a stream. |
+| destoryTuyaCamera | Destroys an object of `TuyaRTCCamera`. |
+| setLogConfigure | Sets the log output of the SDK. |
+| getSdkVersion | Returns information about the SDK version. |
+| getBuildTime | Returns the build time of the SDK. |
 
 
-**TuyaRTCCamera interface description**
-| parameters | description |
+**TuyaRTCCamera**
+| Parameter | Description |
 | :------------ | :------------------------------------------------------------------- |
-| startPreview | Start previewing the contents of the Camera |
-| stopPreview | Stop previewing the content of the camera.
-| startRecord | Start recording the contents of the camera |
-| stopRecord | stop recording the content of the Camera
-| snapShot | Snap a picture of the camera
-| genMp4Thumbnail | Generate the cover of an MP4 file |
-| muteAudio | Mute the camera's sound
-| muteVideo | Switch the camera screen on/off
-| getRemoteAudioMute | Get the mute state of the camera sound.
-| getRemoteVideoMute | Get the on/off state of the Camera video
+| startPreview | Starts previewing content from a camera. |
+| stopPreview | Stops previewing content from a camera. |
+| startRecord | Starts recording content from a camera. |
+| stopRecord | Stops recording content from a camera. |
+| snapShot | Captures an image from a camera. |
+| genMp4Thumbnail | Generates a cover for an MP4 file. |
+| muteAudio | Disables camera sound. |
+| muteVideo | Switches a camera video screen on or off. |
+| getRemoteAudioMute | Returns the mute status of a camera. |
+| getRemoteVideoMute | Returns the video screen status of a camera. |
 
 
-**TuyaRTCEngineHandler interface description**
-| parameters | description |
+**TuyaRTCEngineHandler**
+| Parameter | Description |
 | :------------ | :------------------------------------------------------------------- |
-| onLogMessage | The log output callback function in the SDK |
-| onInitialized | Callback function for successful SDK initialization |
-| onDestoryed | Callback function for successful destruction of the SDK
+| onLogMessage | The log output callback function in the SDK. |
+| onInitialized | The callback function of successful SDK initialization. |
+| onDestoryed | The callback function of successful destruction with the SDK. |
 
-**TuyaRTCCameraHandler interface description**
-| parameters | description |
+**TuyaRTCCameraHandler**
+| Parameter | Description |
 | :------------ | :------------------------------------------------------------------- |
-| onVideoFrame | The video data callback function for the current camera.
-| onFirstVideoFrame | The callback function for the first video frame of the current Camera.
-| onResolutionChanged | The callback function when the video resolution of the current Camera changes.
+| onVideoFrame | The video data callback function for the current camera. |
+| onFirstVideoFrame | The callback function for the first video frame from the current camera. |
+| onResolutionChanged | The callback function that is executed when the video resolution of the current camera changes. |
 
 ## RegionCode Comparison Table
-| region abbreviation | range |
+| Region abbreviation | Region |
 | :------------ | :------------------------------------------------------------------- |
 | cn | China |
 | us | America |
 | eu | Europe |
 | in | India |
-| ue | EasternAmerica |
-| we | WesternEurope |
+| ue | America Azure |
+| we | Europe MS |
 
-## Docs
-Developers can refer to the API documentation located in the doc/html directory. Before reading, please download the code locally and open it in your browser
+## References
+For more information, see the API documentation located in the `doc/html` directory. Before you read these documents, download the sample code to your local directory and open `index.html` in your browser.
 
 ## Constraints
-- Applications can only have one TuyaRTCEngine engine
-- Applications can create different TuyaRTCCamera with different Device Identity
-- The application must be in the preview state when performing record, snapshot, or mute operations, otherwise the application may not perform the results you want.
-
-
+- Only one `TuyaRTCEngine` engine can be used for an application.
+- Multiple objects of `TuyaRTCCamera` can be created with different values of `Device Identity`.
+- The application must be in the preview state during the recording, snapshot, or mute operations. Otherwise, the application might not run as expected.
 
 ## Sample code 
-
 
 - Header file
 ``` java
@@ -350,5 +342,5 @@ public class P2PEngine {
 
 
 ## Latest version
-1.0.0.1
+Version 1.0.0.1
 
