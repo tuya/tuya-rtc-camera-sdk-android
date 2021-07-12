@@ -105,7 +105,12 @@ tuyaRTCEngine.initRtcEngine(appContext, eglBase,
 | we | WesternEurope |
 
 ## Docs
-请参阅[API Reference](doc/index/index.html)，在阅读之前请把代码下载到本地，然后在用浏览器打开
+开发者可以参考API文档位于doc/html目录，在阅读之前请把代码下载到本地，然后在用浏览器打开
+
+## 约束
+- 应用程序只能有一个 TuyaRTCEngine 引擎
+- 应用程序可以通过不同的 Device Identity 创建不同的TuyaRTCCamera
+- 应用程序在执行录制，snapshot，mute 操作的时候一定是处在预览状态，否则程序执行结果可能不是你想要的
 
 ## 用例代码
 
